@@ -1,0 +1,567 @@
+{
+  "name": "SMTP Test",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -640,
+        -20
+      ],
+      "id": "cff90485-c059-4b88-87fd-5626e75d5fae",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://techcrunch.com/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -400,
+        -280
+      ],
+      "id": "e6b5b67f-00d3-411f-821a-b5b19f096c61",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "fromEmail": "david@invisionsolutions.co.uk",
+        "toEmail": "david@invisionsolutions.co.uk",
+        "subject": "Daily TechCrunch Digest",
+        "emailFormat": "=html",
+        "html": "={{$node[\"Build HTML\"].json[\"html\"]}}\n\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -60,
+        -280
+      ],
+      "id": "ea634fc7-833c-4242-b972-89ffcd43be92",
+      "name": "Send email",
+      "webhookId": "3eb3c836-76ab-4d73-a75a-3b11b0612169",
+      "credentials": {
+        "smtp": {
+          "id": "wDksg5xKLj8cSWO2",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const top5 = items.slice(0,5).map(i => i.json);\nconst html = `\n  <h2>TechCrunch Top 5 Stories</h2>\n  <ul>\n    ${top5.map(a=>`<li><a href=\"${a.link}\">${a.title}</a> (${a.pubDate})</li>`).join('')}\n  </ul>`;\nreturn [{ json: { html } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        20
+      ],
+      "id": "fbe49150-5cd7-4113-b5f7-0aa85521bb90",
+      "name": "Build HTML"
+    }
+  ],
+  "pinData": {
+    "RSS Read": [
+      {
+        "json": {
+          "creator": "Rebecca Szkutak",
+          "title": "Nvidia reportedly plans to release new AI chip designed for China",
+          "link": "https://techcrunch.com/2025/07/10/nvidia-reportedly-plans-to-release-new-ai-chip-designed-for-china/",
+          "pubDate": "Thu, 10 Jul 2025 15:29:32 +0000",
+          "dc:creator": "Rebecca Szkutak",
+          "content": "Nvidia plans to release a chip that is retrofitted from an existing Blackwell processor that was modified to meet chip export rules. ",
+          "contentSnippet": "Nvidia plans to release a chip that is retrofitted from an existing Blackwell processor that was modified to meet chip export rules.",
+          "guid": "https://techcrunch.com/?p=3026491",
+          "categories": [
+            "AI",
+            "Enterprise",
+            "AI chips",
+            "artificial intelligence",
+            "nvidia",
+            "semiconductors"
+          ],
+          "isoDate": "2025-07-10T15:29:32.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Lorenzo Franceschi-Bicchierai",
+          "title": "French police arrest Russian basketball player accused of ransomware: report",
+          "link": "https://techcrunch.com/2025/07/10/french-police-arrest-russian-basketball-player-accused-of-ransomware-report/",
+          "pubDate": "Thu, 10 Jul 2025 15:13:35 +0000",
+          "dc:creator": "Lorenzo Franceschi-Bicchierai",
+          "content": "Daniil Kasatkin was reportedly arrested in a Paris airport on June 21 at the request of U.S. authorities.",
+          "contentSnippet": "Daniil Kasatkin was reportedly arrested in a Paris airport on June 21 at the request of U.S. authorities.",
+          "guid": "https://techcrunch.com/?p=3026487",
+          "categories": [
+            "Security",
+            "cybercrime",
+            "France",
+            "hackers",
+            "hacking",
+            "ransomware"
+          ],
+          "isoDate": "2025-07-10T15:13:35.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Sean O'Kane",
+          "title": "Slate Auto: Everything you need to know about the Bezos-backed EV startup",
+          "link": "https://techcrunch.com/2025/07/10/slate-auto-everything-you-need-to-know-about-the-bezos-backed-ev-startup/",
+          "pubDate": "Thu, 10 Jul 2025 15:00:00 +0000",
+          "dc:creator": "Sean O'Kane",
+          "content": "Slate auto burst onto the scene in April 2025. Here is a timeline that covers its origins, backers, product, and other new details.",
+          "contentSnippet": "Slate auto burst onto the scene in April 2025. Here is a timeline that covers its origins, backers, product, and other new details.",
+          "guid": "https://techcrunch.com/?p=3026383",
+          "categories": [
+            "Transportation",
+            "EVs",
+            "jeff bezos",
+            "slate auto"
+          ],
+          "isoDate": "2025-07-10T15:00:00.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Ivan Mehta",
+          "title": "Google adds image-to-video generation capability to Veo 3",
+          "link": "https://techcrunch.com/2025/07/10/google-adds-image-to-video-generation-capability-to-veo-3/",
+          "pubDate": "Thu, 10 Jul 2025 15:00:00 +0000",
+          "dc:creator": "Ivan Mehta",
+          "content": "Google said on Thursday it&#8217;s adding an image-to-video generation feature to its Veo 3 AI video generator through its Gemini app. The company had already rolled out this feature in its AI-powered video tool called Flow, which was launched in May at Google&#8217;s I/O developer conference. After launching Veo 3-powered video generation in May, Google [&#8230;]",
+          "contentSnippet": "Google said on Thursday it’s adding an image-to-video generation feature to its Veo 3 AI video generator through its Gemini app. The company had already rolled out this feature in its AI-powered video tool called Flow, which was launched in May at Google’s I/O developer conference. After launching Veo 3-powered video generation in May, Google […]",
+          "guid": "https://techcrunch.com/?p=3026461",
+          "categories": [
+            "TC",
+            "AI",
+            "Apps",
+            "Google",
+            "gemini ai",
+            "ai video",
+            "veo 3"
+          ],
+          "isoDate": "2025-07-10T15:00:00.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Zack Whittaker",
+          "title": "Authorities arrest four hackers linked to UK retail hacking spree",
+          "link": "https://techcrunch.com/2025/07/10/authorities-arrest-four-hackers-linked-to-uk-retail-hacking-spree/",
+          "pubDate": "Thu, 10 Jul 2025 14:53:25 +0000",
+          "dc:creator": "Zack Whittaker",
+          "content": "The U.K. National Crime Agency said the suspects are in custody in relation to the hacks targeting Marks &#038; Spencer, Harrods, and the Co-op.",
+          "contentSnippet": "The U.K. National Crime Agency said the suspects are in custody in relation to the hacks targeting Marks & Spencer, Harrods, and the Co-op.",
+          "guid": "https://techcrunch.com/?p=3026482",
+          "categories": [
+            "Security",
+            "cyberattack",
+            "cybersecurity",
+            "data breach",
+            "retail store"
+          ],
+          "isoDate": "2025-07-10T14:53:25.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Rebecca Bellan",
+          "title": "Grok is coming to Tesla vehicles ‘next week,’ says Elon Musk ",
+          "link": "https://techcrunch.com/2025/07/10/grok-is-coming-to-tesla-vehicles-next-week-says-elon-musk/",
+          "pubDate": "Thu, 10 Jul 2025 14:22:24 +0000",
+          "dc:creator": "Rebecca Bellan",
+          "content": "Elon Musk said in a post on X early Thursday morning that Grok – the chatbot from his AI company, xAI – will be coming to Tesla vehicles “very soon.” “Next week at the latest,” he said.",
+          "contentSnippet": "Elon Musk said in a post on X early Thursday morning that Grok – the chatbot from his AI company, xAI – will be coming to Tesla vehicles “very soon.” “Next week at the latest,” he said.",
+          "guid": "https://techcrunch.com/?p=3026474",
+          "categories": [
+            "AI",
+            "Transportation",
+            "Elon Musk",
+            "Grok",
+            "Optimus",
+            "Tesla",
+            "X",
+            "xAI"
+          ],
+          "isoDate": "2025-07-10T14:22:24.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Aisha Malik",
+          "title": "US appeals court blocks FTC’s ‘click-to-cancel’ rule for subscriptions",
+          "link": "https://techcrunch.com/2025/07/10/us-appeals-court-blocks-ftcs-click-to-cancel-rule-for-subscriptions/",
+          "pubDate": "Thu, 10 Jul 2025 14:01:10 +0000",
+          "dc:creator": "Aisha Malik",
+          "content": "A U.S. appeals court has blocked the Federal Trade Commission's “click-to-cancel” rule that would have required companies to make it as easy to cancel a subscription as it was to sign up.",
+          "contentSnippet": "A U.S. appeals court has blocked the Federal Trade Commission's “click-to-cancel” rule that would have required companies to make it as easy to cancel a subscription as it was to sign up.",
+          "guid": "https://techcrunch.com/?p=3026459",
+          "categories": [
+            "Government & Policy",
+            "click to cancel",
+            "Federal Trade Commission",
+            "FTC"
+          ],
+          "isoDate": "2025-07-10T14:01:10.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Tim De Chant",
+          "title": "LGND wants to make ChatGPT for the Earth",
+          "link": "https://techcrunch.com/2025/07/10/lgnd-wants-to-make-chatgpt-for-the-earth/",
+          "pubDate": "Thu, 10 Jul 2025 13:58:45 +0000",
+          "dc:creator": "Tim De Chant",
+          "content": "LGND has raised $9 million to convert geographic data into vector embeddings to power AI models that understand the Earth.",
+          "contentSnippet": "LGND has raised $9 million to convert geographic data into vector embeddings to power AI models that understand the Earth.",
+          "guid": "https://techcrunch.com/?p=3026297",
+          "categories": [
+            "AI",
+            "Climate",
+            "embedding",
+            "Exclusive",
+            "geospatial analytics",
+            "geospatial data",
+            "Javelin Ventures",
+            "LGND"
+          ],
+          "isoDate": "2025-07-10T13:58:45.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Marina Temkin",
+          "title": "Knox lands $6.5M to compete with Palantir in the federal compliance market",
+          "link": "https://techcrunch.com/2025/07/10/knox-lands-6-5m-to-compete-with-palantir-in-the-federal-compliance-market/",
+          "pubDate": "Thu, 10 Jul 2025 13:15:00 +0000",
+          "dc:creator": "Marina Temkin",
+          "content": "While highly sought after, federal software contracts frequently come with a hidden cost: Achieving government SaaS security compliance, known as FedRAMP, can take years and require substantial resources. Achieving this certification typically takes up to three years and costs more than $3 million, covering everything from security operations engineer salaries to security audits, according to [&#8230;]",
+          "contentSnippet": "While highly sought after, federal software contracts frequently come with a hidden cost: Achieving government SaaS security compliance, known as FedRAMP, can take years and require substantial resources. Achieving this certification typically takes up to three years and costs more than $3 million, covering everything from security operations engineer salaries to security audits, according to […]",
+          "guid": "https://techcrunch.com/?p=3026447",
+          "categories": [
+            "AI",
+            "Government & Policy",
+            "Startups",
+            "compliance",
+            "Felicis Ventures",
+            "Palantir",
+            "security"
+          ],
+          "isoDate": "2025-07-10T13:15:00.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Rebecca Szkutak",
+          "title": "Diligent Robotics hires two notable Cruise alumni to its leadership team",
+          "link": "https://techcrunch.com/2025/07/10/diligent-robotics-adds-two-notable-cruise-alumni-to-its-leadership-team/",
+          "pubDate": "Thu, 10 Jul 2025 13:00:00 +0000",
+          "dc:creator": "Rebecca Szkutak",
+          "content": "Diligent Robotics hired Cruise's former chief operating officer and former head of AI and robotics into c-suite positions. ",
+          "contentSnippet": "Diligent Robotics hired Cruise's former chief operating officer and former head of AI and robotics into c-suite positions.",
+          "guid": "https://techcrunch.com/?p=3026176",
+          "categories": [
+            "TC",
+            "AI",
+            "Robotics",
+            "healthcare",
+            "robotics",
+            "humanoids",
+            "HealthTech",
+            "Cruise",
+            "Diligent Robotics",
+            "humanoid robots"
+          ],
+          "isoDate": "2025-07-10T13:00:00.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Dominic-Madori Davis",
+          "title": "Google announces latest AI American Infrastructure Acadmey cohort",
+          "link": "https://techcrunch.com/2025/07/10/google-announces-latest-ai-american-infrastructure-acadmey-cohort/",
+          "pubDate": "Thu, 10 Jul 2025 13:00:00 +0000",
+          "dc:creator": "Dominic-Madori Davis",
+          "content": "Google on Thursday announced the second cohort to take part in its AI Academy American Infrastructure Academy, which seeks to support companies using AI to address issues such as cybersecurity, education, and transportation.&#160; The four-month program is designed for companies at a seed to Series A stage and provides equity-free support and resources like leadership [&#8230;]",
+          "contentSnippet": "Google on Thursday announced the second cohort to take part in its AI Academy American Infrastructure Academy, which seeks to support companies using AI to address issues such as cybersecurity, education, and transportation.  The four-month program is designed for companies at a seed to Series A stage and provides equity-free support and resources like leadership […]",
+          "guid": "https://techcrunch.com/?p=3026433",
+          "categories": [
+            "AI",
+            "Google"
+          ],
+          "isoDate": "2025-07-10T13:00:00.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Aria Alamalhodaei",
+          "title": "Trump taps transportation secretary Sean Duffy as acting NASA chief",
+          "link": "https://techcrunch.com/2025/07/10/trump-taps-transportation-secretary-sean-duffy-as-acting-nasa-chief/",
+          "pubDate": "Thu, 10 Jul 2025 12:00:28 +0000",
+          "dc:creator": "Aria Alamalhodaei",
+          "content": "President Donald Trump appointed Secretary of Transportation Sean Duffy to lead NASA. ",
+          "contentSnippet": "President Donald Trump appointed Secretary of Transportation Sean Duffy to lead NASA.",
+          "guid": "https://techcrunch.com/?p=3026424",
+          "categories": [
+            "Space",
+            "Donald Trump",
+            "Elon Musk",
+            "NASA",
+            "Sean duffy"
+          ],
+          "isoDate": "2025-07-10T12:00:28.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Lauren Forristal",
+          "title": "Cameo’s birthday reminder app, Candl, is a weak attempt at a comeback",
+          "link": "https://techcrunch.com/2025/07/10/cameos-birthday-reminder-app-candl-is-a-weak-attempt-at-a-comeback/",
+          "pubDate": "Thu, 10 Jul 2025 12:00:00 +0000",
+          "dc:creator": "Lauren Forristal",
+          "content": "With new birthday app Candl, Cameo is exploring a new, albeit dull, avenue for growth. ",
+          "contentSnippet": "With new birthday app Candl, Cameo is exploring a new, albeit dull, avenue for growth.",
+          "guid": "https://techcrunch.com/?p=3026311",
+          "categories": [
+            "Apps",
+            "cameo",
+            "productivity apps"
+          ],
+          "isoDate": "2025-07-10T12:00:00.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Ivan Mehta",
+          "title": "Samsung to launch a triple-folding phone this year",
+          "link": "https://techcrunch.com/2025/07/10/samsung-to-launch-a-triple-folding-phone-this-year/",
+          "pubDate": "Thu, 10 Jul 2025 11:36:56 +0000",
+          "dc:creator": "Ivan Mehta",
+          "content": "After releasing two new foldables, Samsung is aiming to release a trifold device this year.",
+          "contentSnippet": "After releasing two new foldables, Samsung is aiming to release a trifold device this year.",
+          "guid": "https://techcrunch.com/?p=3026428",
+          "categories": [
+            "Gadgets",
+            "foldable",
+            "Samsung",
+            "smartphone"
+          ],
+          "isoDate": "2025-07-10T11:36:56.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Jagmeet Singh",
+          "title": "Google brings its AI-powered marketing tools to India after ‘Google tax’ repeal",
+          "link": "https://techcrunch.com/2025/07/09/google-brings-its-ai-powered-marketing-tools-to-india-after-google-tax-repeal/",
+          "pubDate": "Thu, 10 Jul 2025 06:30:00 +0000",
+          "dc:creator": "Jagmeet Singh",
+          "content": "Google has launched a suite of its AI-powered advertising tools in India, which debuted in the U.S. in May, as the repeal of the so-called &#8220;Google tax&#8221; has made the South Asian market more attractive to global tech firms selling online ads. In March, the Indian government scrapped its 6% levy on digital advertisements, effective [&#8230;]",
+          "contentSnippet": "Google has launched a suite of its AI-powered advertising tools in India, which debuted in the U.S. in May, as the repeal of the so-called “Google tax” has made the South Asian market more attractive to global tech firms selling online ads. In March, the Indian government scrapped its 6% levy on digital advertisements, effective […]",
+          "guid": "https://techcrunch.com/?p=3026298",
+          "categories": [
+            "AI",
+            "Commerce",
+            "Google",
+            "Google tax",
+            "YouTube",
+            "YouTube Shorts"
+          ],
+          "isoDate": "2025-07-10T06:30:00.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Maxwell Zeff",
+          "title": "Elon Musk’s xAI launches Grok 4 alongside a $300 monthly subscription",
+          "link": "https://techcrunch.com/2025/07/09/elon-musks-xai-launches-grok-4-alongside-a-300-monthly-subscription/",
+          "pubDate": "Thu, 10 Jul 2025 05:28:59 +0000",
+          "dc:creator": "Maxwell Zeff",
+          "content": "Elon Musk’s AI company, xAI, late on Wednesday released its latest flagship AI model, Grok 4, and unveiled a new $300-per-month AI subscription plan, SuperGrok Heavy. Grok is xAI’s answer to models like OpenAI’s&#160;ChatGPT&#160;and Google’s&#160;Gemini, and can analyze images and respond to questions. In recent months, Grok has become more deeply integrated into Musk’s social [&#8230;]",
+          "contentSnippet": "Elon Musk’s AI company, xAI, late on Wednesday released its latest flagship AI model, Grok 4, and unveiled a new $300-per-month AI subscription plan, SuperGrok Heavy. Grok is xAI’s answer to models like OpenAI’s ChatGPT and Google’s Gemini, and can analyze images and respond to questions. In recent months, Grok has become more deeply integrated into Musk’s social […]",
+          "guid": "https://techcrunch.com/?p=3026394",
+          "categories": [
+            "AI",
+            "Elon Musk",
+            "xAI",
+            "Grok"
+          ],
+          "isoDate": "2025-07-10T05:28:59.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Marina Temkin",
+          "title": "Why Cluely’s Roy Lee isn’t sweating cheating detectors",
+          "link": "https://techcrunch.com/2025/07/09/why-cluelys-roy-lee-isnt-sweating-cheating-detectors/",
+          "pubDate": "Thu, 10 Jul 2025 00:36:02 +0000",
+          "dc:creator": "Marina Temkin",
+          "content": "Cluely, the startup that until recently marketed itself as a \"cheat on everything\" tool, is moving away from cheating.",
+          "contentSnippet": "Cluely, the startup that until recently marketed itself as a \"cheat on everything\" tool, is moving away from cheating.",
+          "guid": "https://techcrunch.com/?p=3026382",
+          "categories": [
+            "AI",
+            "Startups",
+            "a16z",
+            "cluely"
+          ],
+          "isoDate": "2025-07-10T00:36:02.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Rebecca Bellan",
+          "title": "Microsoft shares $500M in AI savings internally days after cutting 9,000 jobs",
+          "link": "https://techcrunch.com/2025/07/09/microsoft-shares-500m-in-ai-savings-internally-days-after-cutting-9000-jobs/",
+          "pubDate": "Wed, 09 Jul 2025 23:06:01 +0000",
+          "dc:creator": "Rebecca Bellan",
+          "content": "Microsoft’s chief commercial officer Judson Althoff noted AI has been so useful that Microsoft was able to save more than $500 million last year in its call center alone. ",
+          "contentSnippet": "Microsoft’s chief commercial officer Judson Althoff noted AI has been so useful that Microsoft was able to save more than $500 million last year in its call center alone.",
+          "guid": "https://techcrunch.com/?p=3026317",
+          "categories": [
+            "AI",
+            "Layoffs",
+            "Microsoft"
+          ],
+          "isoDate": "2025-07-09T23:06:01.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Maxwell Zeff",
+          "title": "California lawmaker behind SB 1047 reignites push for mandated AI safety reports",
+          "link": "https://techcrunch.com/2025/07/09/california-lawmaker-behind-sb-1047-reignites-push-for-mandated-ai-safety-reports/",
+          "pubDate": "Wed, 09 Jul 2025 20:54:30 +0000",
+          "dc:creator": "Maxwell Zeff",
+          "content": "California State Senator Scott Wiener on Wednesday introduced new amendments to his latest bill, SB 53, that would require the world's largest AI companies to publish safety and security protocols and issue reports when safety incidents occur.",
+          "contentSnippet": "California State Senator Scott Wiener on Wednesday introduced new amendments to his latest bill, SB 53, that would require the world's largest AI companies to publish safety and security protocols and issue reports when safety incidents occur.",
+          "guid": "https://techcrunch.com/?p=3026251",
+          "categories": [
+            "AI",
+            "Government & Policy",
+            "ai safety",
+            "california"
+          ],
+          "isoDate": "2025-07-09T20:54:30.000Z"
+        }
+      },
+      {
+        "json": {
+          "creator": "Connie Loizos",
+          "title": "Steve Davis left DOGE in May, but officials say he’s still running the show",
+          "link": "https://techcrunch.com/2025/07/09/steve-davis-left-doge-in-may-but-officials-say-hes-still-running-the-show/",
+          "pubDate": "Wed, 09 Jul 2025 20:28:07 +0000",
+          "dc:creator": "Connie Loizos",
+          "content": "Though he officially left the U.S. government in May, Steve Davis -- Elon Musk's low-flying former top lieutenant at the Department of Government Efficiency -- continues wielding influence at DOGE, according to the WSJ. The outlet says Davis regularly gives directions to current DOGE officials and has privately dismissed his departure as \"fake news.\" ",
+          "contentSnippet": "Though he officially left the U.S. government in May, Steve Davis -- Elon Musk's low-flying former top lieutenant at the Department of Government Efficiency -- continues wielding influence at DOGE, according to the WSJ. The outlet says Davis regularly gives directions to current DOGE officials and has privately dismissed his departure as \"fake news.\"",
+          "guid": "https://techcrunch.com/?p=3026275",
+          "categories": [
+            "Government & Policy",
+            "doge",
+            "Elon Musk",
+            "steve davis"
+          ],
+          "isoDate": "2025-07-09T20:28:07.000Z"
+        }
+      }
+    ],
+    "Build HTML": [
+      {
+        "json": {
+          "html": "\n  <h2>TechCrunch Top 5 Stories</h2>\n  <ul>\n    <li><a href=\"https://techcrunch.com/2025/07/10/nvidia-reportedly-plans-to-release-new-ai-chip-designed-for-china/\">Nvidia reportedly plans to release new AI chip designed for China</a> (Thu, 10 Jul 2025 15:29:32 +0000)</li><li><a href=\"https://techcrunch.com/2025/07/10/french-police-arrest-russian-basketball-player-accused-of-ransomware-report/\">French police arrest Russian basketball player accused of ransomware: report</a> (Thu, 10 Jul 2025 15:13:35 +0000)</li><li><a href=\"https://techcrunch.com/2025/07/10/slate-auto-everything-you-need-to-know-about-the-bezos-backed-ev-startup/\">Slate Auto: Everything you need to know about the Bezos-backed EV startup</a> (Thu, 10 Jul 2025 15:00:00 +0000)</li><li><a href=\"https://techcrunch.com/2025/07/10/google-adds-image-to-video-generation-capability-to-veo-3/\">Google adds image-to-video generation capability to Veo 3</a> (Thu, 10 Jul 2025 15:00:00 +0000)</li><li><a href=\"https://techcrunch.com/2025/07/10/authorities-arrest-four-hackers-linked-to-uk-retail-hacking-spree/\">Authorities arrest four hackers linked to UK retail hacking spree</a> (Thu, 10 Jul 2025 14:53:25 +0000)</li>\n  </ul>"
+        }
+      }
+    ],
+    "Send email": [
+      {
+        "json": {
+          "accepted": [
+            "david@invisionsolutions.co.uk"
+          ],
+          "rejected": [],
+          "ehlo": [
+            "SIZE 36700160",
+            "8BITMIME",
+            "AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH",
+            "ENHANCEDSTATUSCODES",
+            "PIPELINING",
+            "CHUNKING",
+            "SMTPUTF8"
+          ],
+          "envelopeTime": 327,
+          "messageTime": 476,
+          "messageSize": 1924,
+          "response": "250 2.0.0 OK  1752162584 5b1f17b1804b1-454cd485059sm79184765e9.0 - gsmtp",
+          "envelope": {
+            "from": "david@invisionsolutions.co.uk",
+            "to": [
+              "david@invisionsolutions.co.uk"
+            ]
+          },
+          "messageId": "<829da1e6-abeb-a7de-887e-8d23eb2b7664@invisionsolutions.co.uk>"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Build HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build HTML": {
+      "main": [
+        [
+          {
+            "node": "Send email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "475f979c-066f-4b77-9482-14eacc58a618",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "86277e3dd9c0a9a521576fb095545f285e9e0e0491edd0874bbe0ec27c215bc1"
+  },
+  "id": "4ejJJVVcUEhRDxpf",
+  "tags": []
+}
