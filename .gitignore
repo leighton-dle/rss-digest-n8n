@@ -1,0 +1,4 @@
+.n8n/
+.DS_Store
+.vscode/
+node_modules/
