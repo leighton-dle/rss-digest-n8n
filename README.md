@@ -129,7 +129,7 @@ jobs:
 
 # Contributing
 
-Create a feature branch
+### Create a feature branch
 
 git checkout -b feature/my-improvement
 Make changes, commit, and push to your fork.
