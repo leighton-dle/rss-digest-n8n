@@ -142,9 +142,6 @@ Ensure CI passes, add reviewers, and once approved, merge!
 
 This project is licensed under the MIT License. See LICENSE for details.
 
-sql
-Copy
-Edit
 
 Paste the above into your **`README.md`**, then:
 
